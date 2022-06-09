@@ -1,6 +1,5 @@
 package me.rockyhawk.commandpanels.commandtags;
 
-import me.realized.tokenmanager.api.TokenManager;
 import me.rockyhawk.commandpanels.CommandPanels;
 import me.rockyhawk.commandpanels.api.Panel;
 import me.rockyhawk.commandpanels.commandtags.tags.economy.BuyCommandTags;
@@ -163,7 +162,7 @@ public class CommandTags {
                     return PaywallOutput.Blocked;
                 }
             }
-            case "tokenpaywall=": {
+            /*case "tokenpaywall=": {
                 //if player uses tokenpaywall= [price]
                 try {
                     if (plugin.getServer().getPluginManager().isPluginEnabled("TokenManager")) {
@@ -188,7 +187,7 @@ public class CommandTags {
                     plugin.tex.sendString(p, tag + plugin.config.getString("config.format.error") + " " + "commands: " + command);
                     return PaywallOutput.Blocked;
                 }
-            }
+            }*/
             case "item-paywall=": {
                 //if player uses item-paywall= [Material] [Amount] [Id]
                 //player can use item-paywall= [custom-item]

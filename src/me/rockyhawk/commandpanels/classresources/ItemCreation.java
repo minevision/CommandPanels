@@ -6,9 +6,6 @@ import me.rockyhawk.commandpanels.CommandPanels;
 import me.rockyhawk.commandpanels.api.Panel;
 import me.rockyhawk.commandpanels.ioclasses.legacy.MinecraftVersions;
 import me.rockyhawk.commandpanels.openpanelsmanager.PanelPosition;
-import net.Indyuce.mmoitems.MMOItems;
-import net.Indyuce.mmoitems.api.item.mmoitem.MMOItem;
-import net.Indyuce.mmoitems.manager.ItemManager;
 import org.bukkit.*;
 import org.bukkit.block.banner.Pattern;
 import org.bukkit.block.banner.PatternType;
@@ -97,16 +94,6 @@ public class ItemCreation {
                 if(plugin.legacy.LOCAL_VERSION.lessThanOrEqualTo(MinecraftVersions.v1_12)){
                     id = 3;
                 }
-            }
-
-            //creates custom MMOItems items
-            if(matraw.split("\\s")[0].equalsIgnoreCase("mmo=") && plugin.getServer().getPluginManager().isPluginEnabled("MMOItems")){
-                String itemType = matraw.split("\\s")[1];
-                String itemID = matraw.split("\\s")[2];
-                ItemManager itemManager = MMOItems.plugin.getItems();
-                MMOItem mmoitem = itemManager.getMMOItem(MMOItems.plugin.getTypes().get(itemType), itemID);
-                s = mmoitem.newBuilder().build();
-                normalCreation = false;
             }
 
             //creates Custom Items items

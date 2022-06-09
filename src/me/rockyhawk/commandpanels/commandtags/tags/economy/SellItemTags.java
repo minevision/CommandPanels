@@ -1,6 +1,5 @@
 package me.rockyhawk.commandpanels.commandtags.tags.economy;
 
-import me.realized.tokenmanager.api.TokenManager;
 import me.rockyhawk.commandpanels.CommandPanels;
 import me.rockyhawk.commandpanels.commandtags.CommandTagEvent;
 import me.rockyhawk.commandpanels.ioclasses.legacy.MinecraftVersions;
@@ -47,7 +46,7 @@ public class SellItemTags implements Listener {
             }
             return;
         }
-        if(e.name.equalsIgnoreCase("tokensell=")) {
+        /*if(e.name.equalsIgnoreCase("tokensell=")) {
             e.commandTagUsed();
             //if player uses tokensell= it will be eg. tokensell= <cashback> <item> <amount of item> [enchanted:KNOCKBACK:1] [potion:JUMP]
             try {
@@ -68,7 +67,7 @@ public class SellItemTags implements Listener {
                 plugin.debug(sell,e.p);
                 plugin.tex.sendMessage(e.p, plugin.config.getString("config.format.error") + " " + "commands: " + e.name);
             }
-        }
+        }*/
     }
 
     //returns false if player does not have item

@@ -1,8 +1,5 @@
 package me.rockyhawk.commandpanels.classresources;
 
-import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.properties.Property;
-import com.mojang.authlib.properties.PropertyMap;
 import me.rockyhawk.commandpanels.CommandPanels;
 import me.rockyhawk.commandpanels.ioclasses.legacy.MinecraftVersions;
 import org.bukkit.Material;
@@ -22,7 +19,8 @@ public class GetCustomHeads {
     }
 
     public String getHeadBase64(ItemStack head) {
-        if (plugin.getHeads.ifSkullOrHead(head.getType().toString()) && head.hasItemMeta()) {
+        return "HEAD";
+        /*if (plugin.getHeads.ifSkullOrHead(head.getType().toString()) && head.hasItemMeta()) {
             try {
                 SkullMeta meta = (SkullMeta) head.getItemMeta();
                 assert meta != null;
@@ -36,9 +34,9 @@ public class GetCustomHeads {
                         return var5.getValue();
                     }
                 }
-            }catch(Exception exc){/*skip return null*/}
+            }catch(Exception exc){}
         }
-        return null;
+        return null;*/
     }
 
     //getting the head from a Player
@@ -57,8 +55,9 @@ public class GetCustomHeads {
 
     @SuppressWarnings("deprecation")
     public ItemStack getCustomHead(String b64stringtexture) {
+        return new ItemStack(Material.SKELETON_SKULL);
         //get head from base64
-        GameProfile profile = new GameProfile(UUID.randomUUID(), null);
+        /*GameProfile profile = new GameProfile(UUID.randomUUID(), null);
         PropertyMap propertyMap = profile.getProperties();
         if (propertyMap == null) {
             throw new IllegalStateException("Profile doesn't contain a property map");
@@ -98,6 +97,6 @@ public class GetCustomHeads {
 
             head.setItemMeta(headMeta);
             return head;
-        }
+        }*/
     }
 }

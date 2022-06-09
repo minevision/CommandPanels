@@ -1,6 +1,5 @@
 package me.rockyhawk.commandpanels.commandtags.tags.economy;
 
-import me.realized.tokenmanager.api.TokenManager;
 import me.rockyhawk.commandpanels.CommandPanels;
 import me.rockyhawk.commandpanels.commandtags.CommandTagEvent;
 import org.bukkit.Bukkit;
@@ -43,7 +42,7 @@ public class BuyCommandTags implements Listener {
             }
             return;
         }
-        if(e.name.equalsIgnoreCase("tokenbuycommand=")){
+        /*if(e.name.equalsIgnoreCase("tokenbuycommand=")){
             e.commandTagUsed();
             //if player uses tokenbuycommand [price] [command]
             try {
@@ -68,6 +67,6 @@ public class BuyCommandTags implements Listener {
                 plugin.debug(buyc,e.p);
                 plugin.tex.sendMessage(e.p, plugin.config.getString("config.format.error") + " " + "commands: " + e.name);
             }
-        }
+        }*/
     }
 }

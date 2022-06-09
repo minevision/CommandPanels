@@ -1,6 +1,5 @@
 package me.rockyhawk.commandpanels;
 
-import io.lumine.mythic.lib.api.item.NBTItem;
 import me.rockyhawk.commandpanels.api.CommandPanelsAPI;
 import me.rockyhawk.commandpanels.api.Panel;
 import me.rockyhawk.commandpanels.classresources.ExecuteOpenVoids;
@@ -40,7 +39,6 @@ import me.rockyhawk.commandpanels.ioclasses.legacy.PlayerHeads;
 import me.rockyhawk.commandpanels.openpanelsmanager.*;
 import me.rockyhawk.commandpanels.openwithitem.HotbarItemLoader;
 import me.rockyhawk.commandpanels.openwithitem.SwapItemEvent;
-import me.rockyhawk.commandpanels.openwithitem.UtilsChestSortEvent;
 import me.rockyhawk.commandpanels.openwithitem.UtilsOpenWithItem;
 import me.rockyhawk.commandpanels.panelblocks.BlocksTabComplete;
 import me.rockyhawk.commandpanels.panelblocks.Commandpanelblocks;
@@ -224,10 +222,6 @@ public class CommandPanels extends JavaPlugin{
             this.getServer().getPluginManager().registerEvents(new SwapItemEvent(this), this);
         }
 
-        //if plugin ChestSort is enabled
-        if(getServer().getPluginManager().isPluginEnabled("ChestSort")){
-            this.getServer().getPluginManager().registerEvents(new UtilsChestSortEvent(this), this);
-        }
 
         //save the example_top.yml file and the template.yml file
         if (!this.panelsf.exists()) {
@@ -534,7 +528,8 @@ public class CommandPanels extends JavaPlugin{
 
     //returns true if the item is the MMO Item
     public boolean isMMOItem(ItemStack itm, String type, String id){
-        try {
+        return false;
+        /*try {
             if (getServer().getPluginManager().isPluginEnabled("MMOItems")) {
                 NBTItem nbt = NBTItem.get(itm);
                 if (nbt.getType().equalsIgnoreCase(type) && nbt.getString("MMOITEMS_ITEM_ID").equalsIgnoreCase(id)){
@@ -545,6 +540,6 @@ public class CommandPanels extends JavaPlugin{
         }catch (Exception ex){
             debug(ex,null);
         }
-        return false;
+        return false;*/
     }
 }

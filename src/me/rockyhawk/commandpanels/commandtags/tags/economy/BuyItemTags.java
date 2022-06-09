@@ -1,6 +1,5 @@
 package me.rockyhawk.commandpanels.commandtags.tags.economy;
 
-import me.realized.tokenmanager.api.TokenManager;
 import me.rockyhawk.commandpanels.CommandPanels;
 import me.rockyhawk.commandpanels.commandtags.CommandTagEvent;
 import me.rockyhawk.commandpanels.ioclasses.legacy.MinecraftVersions;
@@ -43,7 +42,7 @@ public class BuyItemTags implements Listener {
             }
             return;
         }
-        if(e.name.equalsIgnoreCase("tokenbuy=")) {
+        /*if(e.name.equalsIgnoreCase("tokenbuy=")) {
             e.commandTagUsed();
             //if player uses tokenbuy= it will be eg. tokenbuy= <price> <item> <amount of item> <ID>
             try {
@@ -65,7 +64,7 @@ public class BuyItemTags implements Listener {
                 plugin.debug(buy, e.p);
                 plugin.tex.sendMessage(e.p, plugin.config.getString("config.format.error") + " " + "commands: " + e.name);
             }
-        }
+        }*/
     }
 
     @SuppressWarnings("deprecation")
