@@ -20,7 +20,7 @@ config:
   update-notifications: true
   panel-snooper: false
   format:
-    tag: '&6[&bCommandPanels&6]'
+    tag: '&6[&bCommandPanels&6] '
     perms: '&cNo permission.'
     reload: '&aReloaded.'
     nopanel: '&cPanel not found.'
@@ -48,22 +48,31 @@ placeholders:
     start: '{'
     end: '}'
 updater:
-  auto-update: true
+  auto-update: false
   minor-updates-only: true
   update-checks: true
 purchase:
   currency:
+    enable: true
     success: '&aSuccessfully Bought For $%cp-args%'
     failure: '&cInsufficient Funds!'
   data:
+    enable: true
     success: '&aSuccessfully Bought For $%cp-args%'
     failure: '&cInsufficient Funds!'
   tokens:
+    enable: true
     success: '&aSuccessfully Bought For %cp-args% Tokens.'
     failure: '&cInsufficient Tokens!'
+  coins:
+    enable: true
+    success: '&aSuccessfully Bought For %cp-args% Coins.'
+    failure: '&cInsufficient Coins!'
   item:
+    enable: true
     success: '&aSuccessfully Sold %cp-args%.'
     failure: '&cInsufficient Items!'
   xp:
+    enable: true
     success: '&aSuccessfully Bought For %cp-args% Experience.'
     failure: '&cInsufficient Experience!'

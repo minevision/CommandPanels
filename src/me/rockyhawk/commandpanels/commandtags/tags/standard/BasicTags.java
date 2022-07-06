@@ -2,9 +2,15 @@ package me.rockyhawk.commandpanels.commandtags.tags.standard;
 
 import me.rockyhawk.commandpanels.CommandPanels;
 import me.rockyhawk.commandpanels.api.PanelCommandEvent;
+import me.rockyhawk.commandpanels.classresources.SerializerUtils;
 import me.rockyhawk.commandpanels.commandtags.CommandTagEvent;
+import me.rockyhawk.commandpanels.ioclasses.legacy.MinecraftVersions;
 import me.rockyhawk.commandpanels.openpanelsmanager.PanelOpenType;
+import me.rockyhawk.commandpanels.openpanelsmanager.PanelPosition;
+import net.kyori.adventure.audience.Audience;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,8 +25,18 @@ public class BasicTags implements Listener {
     public void commandTag(CommandTagEvent e){
         if(e.name.equalsIgnoreCase("cpc")){
             e.commandTagUsed();
+
+            //unclosable panels are at the Top only
+            if(plugin.openPanels.getOpenPanel(e.p.getName(),PanelPosition.Top).getConfig().contains("panelType")){
+                if(plugin.openPanels.getOpenPanel(e.p.getName(),PanelPosition.Top).getConfig().getStringList("panelType").contains("unclosable")){
+                    plugin.openPanels.closePanelForLoader(e.p.getName(),PanelPosition.Top);
+                    plugin.openPanels.skipPanelClose.add(e.p.getName());
+                }
+            }
+
             //this will close the current inventory
             e.p.closeInventory();
+            plugin.openPanels.skipPanelClose.remove(e.p.getName());
             return;
         }
         if(e.name.equalsIgnoreCase("refresh")) {
@@ -95,8 +111,19 @@ public class BasicTags implements Listener {
         }
         if(e.name.equalsIgnoreCase("event=")) {
             e.commandTagUsed();
-            PanelCommandEvent commandEvent = new PanelCommandEvent(e.p, e.args[0], e.panel);
+            PanelCommandEvent commandEvent = new PanelCommandEvent(e.p, String.join(" ",e.args), e.panel);
             Bukkit.getPluginManager().callEvent(commandEvent);
+            return;
+        }
+        if(e.name.equalsIgnoreCase("minimessage=")){
+            e.commandTagUsed();
+            if(plugin.legacy.LOCAL_VERSION.greaterThanOrEqualTo(MinecraftVersions.v1_18) && Bukkit.getServer().getVersion().contains("Paper")){
+                Audience player = (Audience) e.p; // Needed because the basic Player from the Event can't send Paper's Components
+                Component parsedText = SerializerUtils.serializeText(String.join(" ",e.args));
+                player.sendMessage(parsedText);
+            }else{
+                plugin.tex.sendString(e.p, plugin.tag + ChatColor.RED + "MiniMessage-Feature needs Paper 1.18 or newer to work!");
+            }
         }
     }
 }

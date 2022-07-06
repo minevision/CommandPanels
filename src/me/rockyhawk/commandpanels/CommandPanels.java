@@ -9,7 +9,6 @@ import me.rockyhawk.commandpanels.classresources.ItemCreation;
 import me.rockyhawk.commandpanels.classresources.placeholders.expansion.CpPlaceholderExpansion;
 import me.rockyhawk.commandpanels.completetabs.DataTabComplete;
 import me.rockyhawk.commandpanels.completetabs.ImportTabComplete;
-import me.rockyhawk.commandpanels.ingameeditor.OpenEditorGuis;
 import me.rockyhawk.commandpanels.classresources.item_fall.ItemFallManager;
 import me.rockyhawk.commandpanels.classresources.placeholders.CreateText;
 import me.rockyhawk.commandpanels.classresources.placeholders.HexColours;
@@ -23,10 +22,10 @@ import me.rockyhawk.commandpanels.datamanager.PanelDataLoader;
 import me.rockyhawk.commandpanels.generatepanels.Commandpanelsgenerate;
 import me.rockyhawk.commandpanels.generatepanels.GenUtils;
 import me.rockyhawk.commandpanels.generatepanels.TabCompleteGenerate;
-import me.rockyhawk.commandpanels.ingameeditor.CpIngameEditCommand;
-import me.rockyhawk.commandpanels.ingameeditor.CpTabCompleteIngame;
-import me.rockyhawk.commandpanels.ingameeditor.EditorUserInput;
-import me.rockyhawk.commandpanels.ingameeditor.EditorUtils;
+import me.rockyhawk.commandpanels.editor.CPEventHandler;
+import me.rockyhawk.commandpanels.editor.CommandPanelsEditorCommand;
+import me.rockyhawk.commandpanels.editor.CommandPanelsEditorMain;
+import me.rockyhawk.commandpanels.editor.CommandPanelsEditorTabComplete;
 import me.rockyhawk.commandpanels.interactives.input.UserInputUtils;
 import me.rockyhawk.commandpanels.interactives.Commandpanelrefresher;
 import me.rockyhawk.commandpanels.interactives.OpenOnJoin;
@@ -80,6 +79,8 @@ public class CommandPanels extends JavaPlugin{
     public List<Panel> panelList = new ArrayList<>(); //contains all the panels that are included in the panels folder
 
     //get alternate classes
+    public CommandPanelsEditorMain editorMain = new CommandPanelsEditorMain(this);
+
     public CommandTags commandTags = new CommandTags(this);
     public PanelDataLoader panelData = new PanelDataLoader(this);
     public Placeholders placeholders = new Placeholders(this);
@@ -87,7 +88,6 @@ public class CommandPanels extends JavaPlugin{
     public CreateText tex = new CreateText(this);
     public HexColours hex = new HexColours(this);
 
-    public OpenEditorGuis editorGuis = new OpenEditorGuis(this);
     public ExecuteOpenVoids openVoids = new ExecuteOpenVoids(this);
     public ItemCreation itemCreate = new ItemCreation(this);
     public HasSections has = new HasSections(this);
@@ -204,10 +204,9 @@ public class CommandPanels extends JavaPlugin{
 
         //if ingame-editor set to false, don't load this
         if(Objects.requireNonNull(config.getString("config.ingame-editor")).equalsIgnoreCase("true")){
-            Objects.requireNonNull(this.getCommand("commandpaneledit")).setTabCompleter(new CpTabCompleteIngame(this));
-            Objects.requireNonNull(this.getCommand("commandpaneledit")).setExecutor(new CpIngameEditCommand(this));
-            this.getServer().getPluginManager().registerEvents(new EditorUtils(this), this);
-            this.getServer().getPluginManager().registerEvents(new EditorUserInput(this), this);
+            this.getServer().getPluginManager().registerEvents(new CPEventHandler(this), this);
+            Objects.requireNonNull(this.getCommand("commandpaneledit")).setTabCompleter(new CommandPanelsEditorTabComplete(this));
+            Objects.requireNonNull(this.getCommand("commandpaneledit")).setExecutor(new CommandPanelsEditorCommand(this));
         }
 
         //if panel-blocks set to false, don't load this
@@ -271,7 +270,7 @@ public class CommandPanels extends JavaPlugin{
         }));
 
         //get tag
-        tag = tex.colour(config.getString("config.format.tag") + " ");
+        tag = tex.colour(config.getString("config.format.tag"));
 
         Bukkit.getLogger().info("[CommandPanels] RockyHawk's CommandPanels v" + this.getDescription().getVersion() + " Plugin Loaded!");
     }
@@ -474,7 +473,7 @@ public class CommandPanels extends JavaPlugin{
             p.sendMessage(ChatColor.GOLD + "/cpb list " + ChatColor.WHITE + "List blocks that will open panels.");
         }
         if (p.hasPermission("commandpanel.edit")) {
-            p.sendMessage(ChatColor.GOLD + "/cpe [panel] " + ChatColor.WHITE + "Edit a panel with the Panel Editor.");
+            p.sendMessage(ChatColor.GOLD + "/cpe <panel> " + ChatColor.WHITE + "Edit a panel with the Panel Editor.");
         }
     }
 
